@@ -23,8 +23,8 @@ async function deleteUsuario(id) {
 async function insertUsuario(data) {
   const client = await connect();
   const query = "INSERT INTO usuario (nome,senha,email) VALUES ($1,$2,$3) ";
+  console.log(data);
   const usuario = [data.nome, data.senha, data.email];
-  console.log(usuario);
   await client.query(query, usuario);
 }
 
