@@ -24,7 +24,7 @@ async function insertUsuario(data) {
   const client = await connect();
   const query = "INSERT INTO usuario (nome,senha,email) VALUES ($1,$2,$3) ";
   const usuario = [data.nome, data.senha, data.email];
-  document.write(usuario.toString());
+  console.log(usuario);
   await client.query(query, usuario);
 }
 
