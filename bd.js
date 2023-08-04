@@ -28,4 +28,4 @@ async function insertUsuario(data) {
   await client.query(query, usuario);
 }
 
-export { selectUsuarios, deleteUsuario, insertUsuario };
+export { selectUsuarios, insertUsuario, deleteUsuario };
