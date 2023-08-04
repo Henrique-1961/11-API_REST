@@ -13,7 +13,13 @@ async function selectUsuarios() {
   const res = await client.query("SELECT * FROM usuario");
   return res.rows;
 }
-//bd.js
+
+async function deleteUsuario(id) {
+  const client = await connect();
+  const query = "DELETE FROM usuario WHERE id = $1";
+  await client.query(query, [id]);
+}
+
 async function insertUsuario(data) {
   const client = await connect();
   const query = "INSERT INTO usuario (nome,senha,email) VALUES ($1,$2,$3) ";
