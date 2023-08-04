@@ -27,4 +27,4 @@ async function insertUsuario(data) {
   await client.query(query, usuario);
 }
 
-export { selectUsuarios };
+export { selectUsuarios, deleteUsuario, insertUsuario };
