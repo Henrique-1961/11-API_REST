@@ -7,6 +7,8 @@ dotenv.config();
 const app = express();              
 const port = 3000;         
 
+app.use(express.json())
+
 app.get("/", (req, res) => {        
     res.json({
         nome: "Henrique Cardoso de Souza",     
@@ -27,6 +29,7 @@ app.get("/usuarios", async (req, res) => {
 app.post("/usuario", async (req, res) => {
     console.log("Rota POST /usuario solicitada");
     try {
+      console.log(req);
       await insertUsuario(req.body);
       res.status(201).json({ message: "Usuário inserido com sucesso!" });
     } catch (error) {
