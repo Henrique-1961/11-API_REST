@@ -1,23 +1,17 @@
-import dotenv from "dotenv";
-import express from "express";
-import { selectUsuarios, insertUsuario, deleteUsuario, selectUsuario, updateUsuario } from "./bd.js";
+import { Router } from "express";
 
-dotenv.config();  
+import {
+    selectUsuario,
+    selectUsuarios,
+    insertUsuario,
+    deleteUsuario,
+    updateUsuario,
+  } from "../db/index.js";
+  
+const router = Router();
 
-const app = express();              
-const port = 3000;         
-
-app.use(express.json());
-
-app.get("/", (req, res) => {        
-    res.json({
-        nome: "Henrique Cardoso de Souza",     
-    });
-    console.log("Rota / solicitada");
-});
-
-app.get("/usuarios", async (req, res) => {
-    console.log("Rota GET/usuarios solicitada");
+router.get("/usuario", async (req, res) => {
+    console.log("Rota GET/usuario solicitada");
     try {
         const usuarios = await selectUsuarios();
         res.json(usuarios);
@@ -26,7 +20,7 @@ app.get("/usuarios", async (req, res) => {
     }
 });
 
-app.get("/usuario/:id", async (req, res) => {
+router.get("/usuario/:id", async (req, res) => {
   console.log("Rota GET /usuario solicitada");
   try {
     const usuario = await selectUsuario(req.params.id);
@@ -37,7 +31,7 @@ app.get("/usuario/:id", async (req, res) => {
   }
 });
 
-app.post("/usuario", async (req, res) => {
+router.post("/usuario", async (req, res) => {
     console.log("Rota POST /usuario solicitada");
     try {
       console.log(req);
@@ -48,7 +42,7 @@ app.post("/usuario", async (req, res) => {
     }
 });
 
-app.delete("/usuario/:id", async (req, res) => {
+router.delete("/usuario/:id", async (req, res) => {
     console.log("Rota DELETE /usuario solicitada");
     try {
       await deleteUsuario(req.params.id);
@@ -58,8 +52,8 @@ app.delete("/usuario/:id", async (req, res) => {
     }
 });
 
-app.patch("/usuario", async (req, res) => {
-  console.log("Rota PATCH /usuario solicitada");
+router.put("/usuario", async (req, res) => {
+  console.log("Rota PUT /usuario solicitada");
   try {
     const usuario = await selectUsuario(req.body.id);
     if (usuario.length > 0) {
@@ -72,6 +66,4 @@ app.patch("/usuario", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-    console.log(`Serviço escutando na porta:  ${port}`);
-});
+export default router;
